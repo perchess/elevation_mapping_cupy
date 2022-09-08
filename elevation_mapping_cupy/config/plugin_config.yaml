@@ -19,7 +19,7 @@ smooth_filter:
     input_layer_name: "min_filter"
 # Apply inpainting using opencv
 inpainting:                                   
-  enable: True
+  enable: False
   fill_nan: False
   is_height_layer: True
   layer_name: "inpaint"
@@ -28,7 +28,7 @@ inpainting:
 # Apply smoothing for inpainted layer
 smooth_filter_1:                                
   type: "smooth_filter"
-  enable: True
+  enable: False
   fill_nan: False
   is_height_layer: True
   layer_name: "smooth_1"

@@ -1,0 +1,22 @@
+<launch>
+  <node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen"/>
+  <node pkg="nodelet" type="nodelet" name="voxel_grid" args="load pcl/VoxelGrid pcl_manager" output="screen">
+    <remap from="~input" to="/raisim_unitree_ros_driver/points"/>
+    <remap from="~output" to="/points_downsampled"/>
+    <rosparam>
+      filter_field_name: z
+      filter_limit_min: -1.0
+      filter_limit_max: 1.0  <!-- Limit the range of points to forward to 2 meters in viewing direction-->
+      filter_limit_negative: False
+      leaf_size: 0.02  <!-- Limit the density to 5 cm-->
+    </rosparam>
+  </node>
+  <!-- Elevation mapping node -->
+  <node pkg="elevation_mapping_cupy" type="elevation_mapping_node" name="elevation_mapping" output="screen">
+    <rosparam command="load" file="$(find elevation_mapping_cupy)/config/parameters.yaml" />
+  </node>
+
+  <arg name="rviz_config"             default="$(find elevation_mapping_cupy)/rviz/turtle_example.rviz" />
+  <!-- Launch RViz with the demo configuration. -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)"/>
+</launch>
