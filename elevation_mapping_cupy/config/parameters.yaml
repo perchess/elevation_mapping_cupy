@@ -50,7 +50,7 @@ enable_visibility_cleanup: true
 enable_drift_compensation: true
 enable_overlap_clearance: true
 enable_pointcloud_publishing: false
-enable_drift_corrected_TF_publishing: false
+enable_drift_corrected_TF_publishing: true
 enable_normal_color: false                      # If true, the map contains 'color' layer corresponding to normal. Add 'color' layer to the publishers setting if you want to visualize.
 
 #### Traversability filter ########
@@ -64,7 +64,7 @@ use_only_above_for_upper_bound: false
 plugin_config_file: '$(rospack find elevation_mapping_cupy)/config/plugin_config.yaml'
 
 #### Subscribers ########
-pointcloud_topics: ['/points_downsampled'
+pointcloud_topics: ['/raisim_unitree_ros_driver/points'
                     ]
 
 #### Publishers ########
@@ -78,8 +78,8 @@ publishers:
     basic_layers: ['elevation', 'normal_z'] # traversability
     fps: 5.0
   elevation_map_recordable:
-    layers: ['elevation'] # traversability
-    basic_layers: ['elevation'] # traversability
+    layers: ['elevation', 'smooth'] # traversability
+    basic_layers: ['elevation', 'smooth'] # traversability
     fps: 2.0
   elevation_map_filter:
     layers: ['min_filter', 'smooth'] # inpaint, upper_bound
