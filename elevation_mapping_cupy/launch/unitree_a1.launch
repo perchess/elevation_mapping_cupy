@@ -5,6 +5,8 @@
     <rosparam command="load" file="$(find elevation_mapping_cupy)/config/parameters.yaml" />
   </node>
 
+  <include file="$(find convex_plane_decomposition_ros)/launch/convex_plane_decomposition.launch"/>
+
   <arg name="rviz_config"             default="$(find elevation_mapping_cupy)/rviz/unitree.rviz" />
   <!-- Launch RViz with the demo configuration. -->
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)"/>
